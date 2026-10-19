@@ -787,3 +787,40 @@ legend {
 .dialogo .acoes {
   justify-content: flex-end;
 }
+
+/* ===== PASSO 8: LAYOUT DAS PÁGINAS COM CSS GRID ===== */
+
+/* Lista: áreas nomeadas (uma coluna no celular) */
+.layout-lista {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    "busca"
+    "resumo"
+    "lista";
+}
+
+.painel-busca {
+  grid-area: busca;
+}
+
+.resumo {
+  grid-area: resumo;
+}
+
+.painel-lista {
+  grid-area: lista;
+}
+
+/* Cadastro */
+.layout-formulario {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.mensagens {
+  grid-column: 1 / -1;
+}
+
+/* Detalhes */
+.layout-detalhes {
+  grid-template-columns: minmax(0, 1fr);
+}
