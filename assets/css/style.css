@@ -287,3 +287,184 @@ body > header :focus-visible {
   }
 }
 
+/* ===== PASSO 4: FORMULÁRIOS ===== */
+
+label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.5rem 0.75rem;
+  font: inherit;
+  color: inherit;
+  background: #ffffff;
+  border: 1.5px solid var(--borda-forte);
+  border-radius: var(--raio-controle);
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+textarea {
+  min-height: 7rem;
+  resize: vertical;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #5e6d67;
+  opacity: 1;
+}
+
+input:hover,
+select:hover,
+textarea:hover {
+  border-color: var(--nori);
+}
+
+input:user-invalid,
+select:user-invalid,
+textarea:user-invalid {
+  border-color: var(--perigo);
+  background: #fff8f8;
+}
+
+input:disabled,
+select:disabled,
+textarea:disabled {
+  color: var(--texto-suave);
+  background: var(--nori-claro);
+  cursor: not-allowed;
+}
+
+/* Cada campo é uma coluna: rótulo, controle e texto de ajuda */
+.campo {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.campo-largo {
+  grid-column: 1 / -1;
+}
+
+/* Asterisco nos campos obrigatórios */
+.campo:has([required]) > label::after,
+fieldset:has([type="radio"][required]) > legend::after {
+  content: " *";
+  color: var(--perigo);
+}
+
+.ajuda,
+.nota {
+  font-size: 0.875rem;
+  color: var(--texto-suave);
+}
+
+.ajuda {
+  margin-top: 0.25rem;
+}
+
+.nota {
+  margin: 0 0 var(--espaco-2);
+}
+
+/* Grupos de radio e checkbox */
+.opcoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.opcoes label {
+  margin: 0 1rem 0 0;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  flex: none;
+  width: 1.25rem;
+  min-height: 1.25rem;
+  height: 1.25rem;
+  margin: 0;
+  accent-color: var(--nori);
+}
+
+/* Grid: os campos de cada grupo se distribuem sozinhos nas colunas */
+fieldset {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  gap: var(--espaco-2);
+  min-width: 0;
+  margin: 0 0 var(--espaco-3);
+  padding: var(--espaco-2) var(--espaco-3) var(--espaco-3);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio-painel);
+}
+
+fieldset > .opcoes {
+  grid-column: 1 / -1;
+}
+
+legend {
+  padding-inline: 0.5rem;
+  font-family: var(--fonte-titulo);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--nori);
+}
+
+/* Linha de botões do formulário */
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+}
+
+/* Formulário de pesquisa, filtro e ordenação */
+.form-busca {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  gap: var(--espaco-2);
+}
+
+.form-busca .campo {
+  justify-content: flex-end;
+}
+
+.form-busca .acoes {
+  grid-column: 1 / -1;
+}
+
+/* Busca na API: campo e botão na mesma linha (Flexbox) */
+.busca-api {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.busca-api label {
+  flex: 1 0 100%;
+  margin: 0;
+}
+
+.busca-api input {
+  flex: 1 1 10rem;
+  width: auto;
+}
+
+.painel-api section {
+  margin-top: var(--espaco-3);
+}
