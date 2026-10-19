@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Cadastro e edição de receitas do Poke Point Receitas.">
+  <title>Cadastrar receita | Poke Point Receitas</title>
+  <link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="../assets/js/script.js" defer></script>
+</head>
+<body>
+
+  <header>
+    <a href="../index.html">
+      <img src="../assets/img/logo.svg" alt="Logotipo Poke Point" width="48" height="48">
+    </a>
+    <h1>Poke Point Receitas</h1>
+    <p>Catálogo de receitas e pratos do restaurante</p>
+
+    <nav aria-label="Navegação principal">
+      <ul>
+        <li><a href="../index.html">Receitas</a></li>
+        <li><a href="cadastro.html" aria-current="page">Nova receita</a></li>
+        <li><a href="detalhes.html">Detalhes</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <section aria-labelledby="titulo-api">
+      <h2 id="titulo-api">Buscar receita de referência</h2>
+      <p>Pesquise uma receita no TheMealDB para preencher o formulário com nome, categoria, ingredientes e imagem.</p>
+
+      <form action="cadastro.html" method="get" role="search">
+        <p>
+          <label for="busca-api">Nome da receita (em inglês)</label>
+          <input type="search" id="busca-api" name="busca-api" placeholder="Ex.: salmon">
+          <button type="submit">Buscar na API</button>
+        </p>
+      </form>
+
+      <section aria-labelledby="titulo-resultados-api">
+        <h3 id="titulo-resultados-api">Resultados da busca</h3>
+        <ul>
+          <li>Os resultados da API aparecerão aqui.</li>
+        </ul>
+      </section>
+    </section>
+
+    <section aria-labelledby="titulo-formulario">
+      <h2 id="titulo-formulario">Cadastrar ou editar receita</h2>
+
+      <form action="cadastro.html" method="post">
+
+        <fieldset>
+          <legend>Dados gerais</legend>
+
+          <p>
+            <label for="nome">Nome da receita</label>
+            <input type="text" id="nome" name="nome" maxlength="80" placeholder="Ex.: Poke de salmão" required>
+          </p>
+
+          <p>
+            <label for="categoria">Categoria</label>
+            <select id="categoria" name="categoria" required>
+              <option value="">Selecione uma categoria</option>
+              <option value="sushi">Sushi</option>
+              <option value="poke">Poke</option>
+              <option value="temaki">Temaki</option>
+              <option value="quente">Prato quente</option>
+              <option value="entrada">Entrada</option>
+              <option value="sobremesa">Sobremesa</option>
+            </select>
+          </p>
+
+          <p>
+            <label for="imagem">Endereço da imagem</label>
+            <input type="url" id="imagem" name="imagem" placeholder="https://exemplo.com/prato.jpg">
+          </p>
+        </fieldset>
+
+        <fieldset>
+          <legend>Preparo</legend>
+
+          <p>
+            <label for="ingredientes">Ingredientes (um por linha)</label>
+            <textarea id="ingredientes" name="ingredientes" rows="6" required></textarea>
+          </p>
+
+          <p>
+            <label for="modo-preparo">Modo de preparo</label>
+            <textarea id="modo-preparo" name="modo-preparo" rows="6"></textarea>
+          </p>
+
+          <p>
+            <label for="tempo">Tempo de preparo (minutos)</label>
+            <input type="number" id="tempo" name="tempo" min="1" max="480" step="1" required>
+          </p>
+
+          <p>
+            <label for="custo">Custo estimado por porção (R$)</label>
+            <input type="number" id="custo" name="custo" min="0" step="0.01" required>
+          </p>
+        </fieldset>
+
+        <fieldset>
+          <legend>Dificuldade</legend>
+          <p>
+            <input type="radio" id="dificuldade-facil" name="dificuldade" value="facil" required>
+            <label for="dificuldade-facil">Fácil</label>
+
+            <input type="radio" id="dificuldade-media" name="dificuldade" value="media">
+            <label for="dificuldade-media">Média</label>
+
+            <input type="radio" id="dificuldade-dificil" name="dificuldade" value="dificil">
+            <label for="dificuldade-dificil">Difícil</label>
+          </p>
+        </fieldset>
+
+        <fieldset>
+          <legend>Avaliação e situação</legend>
+
+          <p>
+            <label for="avaliacao">Avaliação (0 a 5)</label>
+            <input type="number" id="avaliacao" name="avaliacao" min="0" max="5" step="0.1">
+          </p>
+
+          <p>
+            <label for="status">Status</label>
+            <select id="status" name="status" required>
+              <option value="">Selecione o status</option>
+              <option value="em-teste">Em teste</option>
+              <option value="no-cardapio">No cardápio</option>
+              <option value="descontinuado">Descontinuado</option>
+            </select>
+          </p>
+
+          <p>
+            <input type="checkbox" id="destaque" name="destaque" value="sim">
+            <label for="destaque">Marcar como destaque do cardápio</label>
+          </p>
+        </fieldset>
+
+        <p>
+          <button type="submit">Salvar receita</button>
+          <button type="reset">Limpar formulário</button>
+          <a href="../index.html">Cancelar</a>
+        </p>
+
+      </form>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Poke Point Receitas &mdash; Trabalho Prático Individual, Interfaces Web, PUC Minas.</p>
+    <p>Desenvolvido por Luiz Felipe.</p>
+  </footer>
+
+</body>
+</html>

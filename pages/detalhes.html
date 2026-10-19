@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Detalhes de uma receita do Poke Point Receitas.">
+  <title>Detalhes da receita | Poke Point Receitas</title>
+  <link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="../assets/js/script.js" defer></script>
+</head>
+<body>
+
+  <header>
+    <a href="../index.html">
+      <img src="../assets/img/logo.svg" alt="Logotipo Poke Point" width="48" height="48">
+    </a>
+    <h1>Poke Point Receitas</h1>
+    <p>Catálogo de receitas e pratos do restaurante</p>
+
+    <nav aria-label="Navegação principal">
+      <ul>
+        <li><a href="../index.html">Receitas</a></li>
+        <li><a href="cadastro.html">Nova receita</a></li>
+        <li><a href="detalhes.html" aria-current="page">Detalhes</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <p><a href="../index.html">Voltar para a lista de receitas</a></p>
+
+    <article aria-labelledby="titulo-receita">
+      <header>
+        <h2 id="titulo-receita">Poke de salmão</h2>
+        <p>Categoria: Poke</p>
+      </header>
+
+      <figure>
+        <img src="../assets/img/placeholder-prato.svg" alt="Poke de salmão com arroz, legumes e cubos de salmão cru" width="400" height="300">
+        <figcaption>Imagem ilustrativa do prato.</figcaption>
+      </figure>
+
+      <section aria-labelledby="titulo-informacoes">
+        <h3 id="titulo-informacoes">Informações</h3>
+        <dl>
+          <dt>Tempo de preparo</dt>
+          <dd>15 minutos</dd>
+
+          <dt>Dificuldade</dt>
+          <dd>Fácil</dd>
+
+          <dt>Custo estimado por porção</dt>
+          <dd>R$ 14,50</dd>
+
+          <dt>Avaliação</dt>
+          <dd>4,8 de 5</dd>
+
+          <dt>Status</dt>
+          <dd>No cardápio</dd>
+
+          <dt>Destaque</dt>
+          <dd>Sim</dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="titulo-ingredientes">
+        <h3 id="titulo-ingredientes">Ingredientes</h3>
+        <ul>
+          <li>150 g de salmão fresco em cubos</li>
+          <li>1 xícara de arroz japonês cozido</li>
+          <li>1/2 pepino em fatias finas</li>
+          <li>1/2 manga em cubos</li>
+          <li>2 colheres de molho shoyu</li>
+          <li>1 colher de gergelim torrado</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="titulo-preparo">
+        <h3 id="titulo-preparo">Modo de preparo</h3>
+        <ol>
+          <li>Tempere o salmão com shoyu e gergelim.</li>
+          <li>Monte a base com o arroz japonês na tigela.</li>
+          <li>Distribua o pepino, a manga e o salmão sobre o arroz.</li>
+          <li>Finalize com gergelim e sirva imediatamente.</li>
+        </ol>
+      </section>
+
+      <footer>
+        <p>
+          <a href="cadastro.html?id=1">Editar receita</a>
+          <button type="button">Excluir receita</button>
+        </p>
+      </footer>
+    </article>
+
+    <aside aria-labelledby="titulo-relacionadas">
+      <h2 id="titulo-relacionadas">Outras receitas da categoria</h2>
+      <ul>
+        <li><a href="detalhes.html?id=2">Hot roll de salmão</a></li>
+        <li><a href="detalhes.html?id=3">Temaki de atum</a></li>
+      </ul>
+    </aside>
+
+  </main>
+
+  <footer>
+    <p>Poke Point Receitas &mdash; Trabalho Prático Individual, Interfaces Web, PUC Minas.</p>
+    <p>Desenvolvido por Luiz Felipe.</p>
+  </footer>
+
+</body>
+</html>

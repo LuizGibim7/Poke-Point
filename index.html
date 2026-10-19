@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Poke Point Receitas: catálogo de receitas e pratos de um restaurante de comida oriental e poke.">
+  <title>Receitas cadastradas | Poke Point Receitas</title>
+  <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="assets/js/script.js" defer></script>
+</head>
+<body>
+
+  <header>
+    <a href="index.html">
+      <img src="assets/img/logo.svg" alt="Logotipo Poke Point" width="48" height="48">
+    </a>
+    <h1>Poke Point Receitas</h1>
+    <p>Catálogo de receitas e pratos do restaurante</p>
+
+    <nav aria-label="Navegação principal">
+      <ul>
+        <li><a href="index.html" aria-current="page">Receitas</a></li>
+        <li><a href="pages/cadastro.html">Nova receita</a></li>
+        <li><a href="pages/detalhes.html">Detalhes</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <section aria-labelledby="titulo-busca">
+      <h2 id="titulo-busca">Pesquisar, filtrar e ordenar</h2>
+
+      <form action="index.html" method="get" role="search">
+        <p>
+          <label for="busca">Pesquisar por nome ou ingrediente</label>
+          <input type="search" id="busca" name="busca" placeholder="Ex.: salmão">
+        </p>
+
+        <p>
+          <label for="filtro-categoria">Categoria</label>
+          <select id="filtro-categoria" name="categoria">
+            <option value="">Todas</option>
+            <option value="sushi">Sushi</option>
+            <option value="poke">Poke</option>
+            <option value="temaki">Temaki</option>
+            <option value="quente">Prato quente</option>
+            <option value="entrada">Entrada</option>
+            <option value="sobremesa">Sobremesa</option>
+          </select>
+        </p>
+
+        <p>
+          <label for="filtro-status">Status</label>
+          <select id="filtro-status" name="status">
+            <option value="">Todos</option>
+            <option value="em-teste">Em teste</option>
+            <option value="no-cardapio">No cardápio</option>
+            <option value="descontinuado">Descontinuado</option>
+          </select>
+        </p>
+
+        <p>
+          <label for="ordenacao">Ordenar por</label>
+          <select id="ordenacao" name="ordenacao">
+            <option value="nome-asc">Nome (A–Z)</option>
+            <option value="nome-desc">Nome (Z–A)</option>
+            <option value="tempo-asc">Menor tempo de preparo</option>
+            <option value="tempo-desc">Maior tempo de preparo</option>
+            <option value="avaliacao-desc">Melhor avaliação</option>
+            <option value="custo-asc">Menor custo</option>
+          </select>
+        </p>
+
+        <p>
+          <button type="submit">Pesquisar</button>
+          <button type="reset">Limpar filtros</button>
+        </p>
+      </form>
+    </section>
+
+    <section aria-labelledby="titulo-lista">
+      <h2 id="titulo-lista">Receitas cadastradas</h2>
+      <p>Exibindo 6 receitas.</p>
+
+      <p><a href="pages/cadastro.html">Cadastrar nova receita</a></p>
+
+      <table>
+        <caption>Lista de receitas do cardápio</caption>
+        <thead>
+          <tr>
+            <th scope="col">Nome</th>
+            <th scope="col">Categoria</th>
+            <th scope="col">Tempo de preparo</th>
+            <th scope="col">Dificuldade</th>
+            <th scope="col">Custo estimado</th>
+            <th scope="col">Avaliação</th>
+            <th scope="col">Status</th>
+            <th scope="col">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Poke de salmão</th>
+            <td>Poke</td>
+            <td>15 min</td>
+            <td>Fácil</td>
+            <td>R$ 14,50</td>
+            <td>4,8</td>
+            <td>No cardápio</td>
+            <td>
+              <a href="pages/detalhes.html?id=1">Ver detalhes</a>
+              <a href="pages/cadastro.html?id=1">Editar</a>
+              <button type="button">Excluir</button>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Hot roll de salmão</th>
+            <td>Sushi</td>
+            <td>25 min</td>
+            <td>Média</td>
+            <td>R$ 11,20</td>
+            <td>4,6</td>
+            <td>No cardápio</td>
+            <td>
+              <a href="pages/detalhes.html?id=2">Ver detalhes</a>
+              <a href="pages/cadastro.html?id=2">Editar</a>
+              <button type="button">Excluir</button>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Temaki de atum</th>
+            <td>Temaki</td>
+            <td>10 min</td>
+            <td>Fácil</td>
+            <td>R$ 9,80</td>
+            <td>4,4</td>
+            <td>No cardápio</td>
+            <td>
+              <a href="pages/detalhes.html?id=3">Ver detalhes</a>
+              <a href="pages/cadastro.html?id=3">Editar</a>
+              <button type="button">Excluir</button>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Yakisoba misto</th>
+            <td>Prato quente</td>
+            <td>30 min</td>
+            <td>Média</td>
+            <td>R$ 12,00</td>
+            <td>4,2</td>
+            <td>No cardápio</td>
+            <td>
+              <a href="pages/detalhes.html?id=4">Ver detalhes</a>
+              <a href="pages/cadastro.html?id=4">Editar</a>
+              <button type="button">Excluir</button>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Uramaki skin crocante</th>
+            <td>Sushi</td>
+            <td>35 min</td>
+            <td>Difícil</td>
+            <td>R$ 10,40</td>
+            <td>4,0</td>
+            <td>Em teste</td>
+            <td>
+              <a href="pages/detalhes.html?id=5">Ver detalhes</a>
+              <a href="pages/cadastro.html?id=5">Editar</a>
+              <button type="button">Excluir</button>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Mochi de morango</th>
+            <td>Sobremesa</td>
+            <td>40 min</td>
+            <td>Difícil</td>
+            <td>R$ 6,90</td>
+            <td>3,9</td>
+            <td>Descontinuado</td>
+            <td>
+              <a href="pages/detalhes.html?id=6">Ver detalhes</a>
+              <a href="pages/cadastro.html?id=6">Editar</a>
+              <button type="button">Excluir</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p hidden>Nenhuma receita encontrada. Ajuste a pesquisa ou cadastre uma nova receita.</p>
+    </section>
+
+    <aside aria-labelledby="titulo-resumo">
+      <h2 id="titulo-resumo">Resumo do catálogo</h2>
+      <ul>
+        <li>Total de receitas: 6</li>
+        <li>No cardápio: 4</li>
+        <li>Em teste: 1</li>
+        <li>Descontinuadas: 1</li>
+      </ul>
+    </aside>
+
+    <dialog id="dialogo-exclusao" aria-labelledby="titulo-exclusao">
+      <h2 id="titulo-exclusao">Excluir receita</h2>
+      <p>Tem certeza de que deseja excluir esta receita? Essa ação não pode ser desfeita.</p>
+      <form method="dialog">
+        <button type="submit" value="cancelar">Cancelar</button>
+        <button type="submit" value="confirmar">Excluir receita</button>
+      </form>
+    </dialog>
+
+  </main>
+
+  <footer>
+    <p>Poke Point Receitas &mdash; Trabalho Prático Individual, Interfaces Web, PUC Minas.</p>
+    <p>Desenvolvido por Luiz Felipe.</p>
+  </footer>
+
+</body>
+</html>
