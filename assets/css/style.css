@@ -1,0 +1,89 @@
+/* ===== PASSO 1: IDENTIDADE VISUAL ===== */
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Zen+Maru+Gothic:wght@500;700&display=swap');
+
+:root {
+  /* Cores */
+  --nori: #1f3a34;
+  --nori-claro: #e3ebe6;
+  --arroz: #f3f5f1;
+  --superficie: #ffffff;
+  --texto: #1d2b27;
+  --texto-suave: #4f605a;
+  --borda: #cbd5cf;
+  --borda-forte: #6b7c75;
+  --salmao: #c8452b;
+  --salmao-escuro: #a93a24;
+  --perigo: #a61e1e;
+  --foco: #0b5fd0;
+
+  /* Tipografia */
+  --fonte-titulo: 'Zen Maru Gothic', 'Trebuchet MS', sans-serif;
+  --fonte-texto: 'Source Sans 3', 'Segoe UI', Arial, sans-serif;
+
+  /* Medidas */
+  --largura: 80rem;
+  --raio-painel: 0.75rem;
+  --raio-controle: 0.5rem;
+  --espaco-1: 0.5rem;
+  --espaco-2: 1rem;
+  --espaco-3: 1.5rem;
+  --espaco-4: 2rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--fonte-texto);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--texto);
+  background: var(--arroz);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0 0 var(--espaco-2);
+  font-family: var(--fonte-titulo);
+  line-height: 1.25;
+}
+
+h1 {
+  font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2.25rem);
+}
+
+h2 {
+  font-size: clamp(1.25rem, 1.1rem + 0.8vw, 1.625rem);
+}
+
+h3 {
+  font-size: 1.125rem;
+}
+
+a {
+  color: var(--nori);
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  text-decoration-thickness: 0.15em;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+[hidden] {
+  display: none !important;
+}
