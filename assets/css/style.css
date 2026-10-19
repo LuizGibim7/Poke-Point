@@ -87,3 +87,112 @@ img {
 [hidden] {
   display: none !important;
 }
+/* ===== PASSO 2: ESTRUTURA GERAL E NAVEGAÇÃO ===== */
+
+/* Flexbox: o rodapé fica sempre no fim da página */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Centraliza o conteúdo até a largura máxima, mantendo o fundo em tela cheia */
+body > header,
+main,
+body > footer {
+  padding-inline: max(var(--espaco-2), calc((100% - var(--largura)) / 2));
+}
+
+main {
+  flex: 1;
+  display: grid;
+  align-content: start;
+  gap: var(--espaco-3);
+  padding-block: var(--espaco-3);
+}
+
+/* Cabeçalho com Grid: logo, título, subtítulo e navegação */
+body > header {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "logo titulo"
+    "logo subtitulo"
+    "nav  nav";
+  column-gap: var(--espaco-2);
+  align-items: center;
+  padding-block: var(--espaco-2);
+  color: #ffffff;
+  background: var(--nori);
+  border-bottom: 4px solid var(--salmao);
+}
+
+body > header > a {
+  grid-area: logo;
+  display: block;
+  border-radius: 50%;
+}
+
+body > header img {
+  width: 3rem;
+  height: 3rem;
+}
+
+body > header > h1 {
+  grid-area: titulo;
+  margin: 0;
+}
+
+body > header > p {
+  grid-area: subtitulo;
+  margin: 0;
+  color: #cfe0d8;
+}
+
+body > header > nav {
+  grid-area: nav;
+  margin-top: var(--espaco-2);
+}
+
+/* Flexbox: lista de links da navegação */
+nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espaco-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav a {
+  display: block;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+nav a:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+nav a[aria-current="page"] {
+  color: var(--nori);
+  background: #ffffff;
+}
+
+/* Rodapé */
+body > footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-block: var(--espaco-3);
+  font-size: 0.9375rem;
+  color: #dce8e2;
+  background: var(--nori);
+}
+
+body > footer p {
+  margin: 0;
+}
