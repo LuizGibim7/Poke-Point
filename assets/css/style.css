@@ -468,3 +468,171 @@ legend {
 .painel-api section {
   margin-top: var(--espaco-3);
 }
+
+/* ===== PASSO 5: LISTAGEM DE RECEITAS ===== */
+
+/* Painéis: base visual compartilhada */
+.painel-busca,
+.painel-lista,
+.painel-api,
+.painel-formulario,
+.receita,
+.relacionadas {
+  padding: clamp(1rem, 3vw, 1.5rem);
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio-painel);
+}
+
+.painel-lista {
+  position: relative;
+}
+
+.contagem {
+  margin-top: -0.5rem;
+  color: var(--texto-suave);
+}
+
+.painel-lista > .acoes {
+  margin-bottom: var(--espaco-3);
+}
+
+/* Tabela em telas pequenas: cada linha vira um cartão */
+.painel-lista table,
+.painel-lista tbody,
+.painel-lista tr,
+.painel-lista th,
+.painel-lista td {
+  display: block;
+}
+
+.painel-lista table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Legenda e cabeçalho ocultos visualmente, mas lidos por leitores de tela */
+.painel-lista caption,
+.painel-lista thead {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.painel-lista tr {
+  margin-bottom: var(--espaco-2);
+  padding: var(--espaco-2);
+  background: #ffffff;
+  border: 1px solid var(--borda);
+  border-radius: var(--raio-controle);
+}
+
+.painel-lista th[scope="row"] {
+  padding-bottom: 0.5rem;
+  font-family: var(--fonte-titulo);
+  font-size: 1.125rem;
+  text-align: left;
+}
+
+.painel-lista td {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espaco-2);
+  padding: 0.4rem 0;
+  border-top: 1px dashed var(--borda);
+}
+
+/* O rótulo de cada dado vem do atributo data-label do HTML */
+.painel-lista td::before {
+  content: attr(data-label);
+  font-weight: 600;
+  color: var(--texto-suave);
+}
+
+.painel-lista td[data-label="Ações"] {
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.painel-lista td[data-label="Ações"]::before {
+  display: none;
+}
+
+.painel-lista td .botao {
+  min-height: 2.25rem;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.9375rem;
+}
+
+/* Selos de status */
+.selo {
+  display: inline-block;
+  padding: 0.15rem 0.65rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  white-space: nowrap;
+  border-radius: 999px;
+}
+
+.selo-cardapio {
+  color: #1e4d1b;
+  background: #dcefd9;
+}
+
+.selo-teste {
+  color: #5c3d00;
+  background: #ffe9b8;
+}
+
+.selo-descontinuado {
+  color: #3a3a3a;
+  background: #e6e6e6;
+}
+
+/* Resumo do catálogo: Flexbox */
+.resumo {
+  padding: clamp(1rem, 3vw, 1.5rem);
+  background: var(--nori-claro);
+  border-radius: var(--raio-painel);
+}
+
+.resumo ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.resumo li {
+  flex: 1 1 8rem;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9375rem;
+  line-height: 1.3;
+  color: var(--texto-suave);
+  background: #ffffff;
+  border-radius: var(--raio-controle);
+}
+
+.resumo strong {
+  font-family: var(--fonte-titulo);
+  font-size: 1.75rem;
+  line-height: 1.1;
+  color: var(--nori);
+}
+
+/* Estado vazio da listagem */
+.estado-vazio {
+  padding: var(--espaco-4) var(--espaco-2);
+  text-align: center;
+  color: var(--texto-suave);
+  border: 2px dashed var(--borda-forte);
+  border-radius: var(--raio-painel);
+}
