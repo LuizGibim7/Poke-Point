@@ -824,3 +824,145 @@ legend {
 .layout-detalhes {
   grid-template-columns: minmax(0, 1fr);
 }
+
+/* ===== PASSO 9: RESPONSIVIDADE ===== */
+
+/* Tablet em diante: a partir de 768px */
+@media (min-width: 48em) {
+  body > header {
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas:
+      "logo titulo    nav"
+      "logo subtitulo nav";
+  }
+
+  body > header > nav {
+    margin-top: 0;
+  }
+
+  body > footer {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  /* Cartões da listagem em colunas */
+  .painel-lista tbody {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    gap: var(--espaco-2);
+  }
+
+  .painel-lista tr {
+    margin-bottom: 0;
+  }
+
+  /* Detalhes: imagem ao lado das informações */
+  .receita {
+    grid-template-columns: minmax(14rem, 20rem) minmax(0, 1fr);
+  }
+
+  .receita > header,
+  .receita > footer {
+    grid-column: 1 / -1;
+  }
+
+  .receita > figure {
+    grid-row: 2 / span 3;
+  }
+
+  .receita > section {
+    grid-column: 2;
+  }
+}
+
+/* Notebook e desktop: a partir de 1152px */
+@media (min-width: 72em) {
+  .layout-lista {
+    grid-template-columns: minmax(0, 1fr) 22rem;
+    grid-template-areas:
+      "busca resumo"
+      "lista lista";
+  }
+
+  .layout-formulario {
+    grid-template-columns: 22rem minmax(0, 1fr);
+  }
+
+  .layout-detalhes {
+    grid-template-columns: minmax(0, 1fr) 16rem;
+  }
+
+  .layout-detalhes > p {
+    grid-column: 1 / -1;
+  }
+
+  .painel-api,
+  .relacionadas {
+    align-self: start;
+  }
+
+  /* A listagem volta a ser uma tabela tradicional */
+  .painel-lista table {
+    display: table;
+  }
+
+  .painel-lista thead {
+    position: static;
+    display: table-header-group;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip-path: none;
+    white-space: normal;
+  }
+
+  .painel-lista tbody {
+    display: table-row-group;
+  }
+
+  .painel-lista tr {
+    display: table-row;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .painel-lista th,
+  .painel-lista td {
+    display: table-cell;
+    padding: 0.625rem 0.5rem;
+    text-align: left;
+    vertical-align: middle;
+    border-top: 0;
+    border-bottom: 1px solid var(--borda);
+  }
+
+  .painel-lista td::before {
+    content: none;
+  }
+
+  .painel-lista thead th {
+    font-size: 0.9375rem;
+    color: var(--nori);
+    background: var(--nori-claro);
+  }
+
+  .painel-lista th[scope="row"] {
+    font-family: var(--fonte-texto);
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .painel-lista tbody tr:nth-child(even) {
+    background: #f7f9f7;
+  }
+
+  .painel-lista tbody tr:hover {
+    background: #edf3ef;
+  }
+
+  .painel-lista td .botao {
+    margin: 0.125rem 0.25rem 0.125rem 0;
+  }
+}
