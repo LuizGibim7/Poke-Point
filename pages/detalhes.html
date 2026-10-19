@@ -27,11 +27,11 @@
     </nav>
   </header>
 
-  <main>
+  <main class="layout-detalhes">
 
-    <p><a href="../index.html">Voltar para a lista de receitas</a></p>
+    <p><a class="link-voltar" href="../index.html">Voltar para a lista de receitas</a></p>
 
-    <article aria-labelledby="titulo-receita">
+    <article class="receita" aria-labelledby="titulo-receita">
       <header>
         <h2 id="titulo-receita">Poke de salmão</h2>
         <p>Categoria: Poke</p>
@@ -45,23 +45,35 @@
       <section aria-labelledby="titulo-informacoes">
         <h3 id="titulo-informacoes">Informações</h3>
         <dl>
-          <dt>Tempo de preparo</dt>
-          <dd>15 minutos</dd>
+          <div>
+            <dt>Tempo de preparo</dt>
+            <dd>15 minutos</dd>
+          </div>
 
-          <dt>Dificuldade</dt>
-          <dd>Fácil</dd>
+          <div>
+            <dt>Dificuldade</dt>
+            <dd>Fácil</dd>
+          </div>
 
-          <dt>Custo estimado por porção</dt>
-          <dd>R$ 14,50</dd>
+          <div>
+            <dt>Custo estimado por porção</dt>
+            <dd>R$ 14,50</dd>
+          </div>
 
-          <dt>Avaliação</dt>
-          <dd>4,8 de 5</dd>
+          <div>
+            <dt>Avaliação</dt>
+            <dd>4,8 de 5</dd>
+          </div>
 
-          <dt>Status</dt>
-          <dd>No cardápio</dd>
+          <div>
+            <dt>Status</dt>
+            <dd><span class="selo selo-cardapio">No cardápio</span></dd>
+          </div>
 
-          <dt>Destaque</dt>
-          <dd>Sim</dd>
+          <div>
+            <dt>Destaque</dt>
+            <dd>Sim</dd>
+          </div>
         </dl>
       </section>
 
@@ -88,14 +100,14 @@
       </section>
 
       <footer>
-        <p>
-          <a href="cadastro.html?id=1">Editar receita</a>
-          <button type="button">Excluir receita</button>
+        <p class="acoes">
+          <a class="botao botao-secundario" href="cadastro.html?id=1">Editar receita</a>
+          <button class="botao botao-perigo" type="button">Excluir receita</button>
         </p>
       </footer>
     </article>
 
-    <aside aria-labelledby="titulo-relacionadas">
+    <aside class="relacionadas" aria-labelledby="titulo-relacionadas">
       <h2 id="titulo-relacionadas">Outras receitas da categoria</h2>
       <ul>
         <li><a href="detalhes.html?id=2">Hot roll de salmão</a></li>

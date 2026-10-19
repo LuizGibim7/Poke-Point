@@ -27,18 +27,18 @@
     </nav>
   </header>
 
-  <main>
+  <main class="layout-lista">
 
-    <section aria-labelledby="titulo-busca">
+    <section class="painel-busca" aria-labelledby="titulo-busca">
       <h2 id="titulo-busca">Pesquisar, filtrar e ordenar</h2>
 
-      <form action="index.html" method="get" role="search">
-        <p>
+      <form class="form-busca" action="index.html" method="get" role="search">
+        <p class="campo">
           <label for="busca">Pesquisar por nome ou ingrediente</label>
           <input type="search" id="busca" name="busca" placeholder="Ex.: salmão">
         </p>
 
-        <p>
+        <p class="campo">
           <label for="filtro-categoria">Categoria</label>
           <select id="filtro-categoria" name="categoria">
             <option value="">Todas</option>
@@ -51,7 +51,7 @@
           </select>
         </p>
 
-        <p>
+        <p class="campo">
           <label for="filtro-status">Status</label>
           <select id="filtro-status" name="status">
             <option value="">Todos</option>
@@ -61,7 +61,7 @@
           </select>
         </p>
 
-        <p>
+        <p class="campo">
           <label for="ordenacao">Ordenar por</label>
           <select id="ordenacao" name="ordenacao">
             <option value="nome-asc">Nome (A–Z)</option>
@@ -73,18 +73,18 @@
           </select>
         </p>
 
-        <p>
-          <button type="submit">Pesquisar</button>
-          <button type="reset">Limpar filtros</button>
+        <p class="acoes">
+          <button class="botao botao-primario" type="submit">Pesquisar</button>
+          <button class="botao botao-secundario" type="reset">Limpar filtros</button>
         </p>
       </form>
     </section>
 
-    <section aria-labelledby="titulo-lista">
+    <section class="painel-lista" aria-labelledby="titulo-lista">
       <h2 id="titulo-lista">Receitas cadastradas</h2>
-      <p>Exibindo 6 receitas.</p>
+      <p class="contagem">Exibindo 6 receitas.</p>
 
-      <p><a href="pages/cadastro.html">Cadastrar nova receita</a></p>
+      <p class="acoes"><a class="botao botao-primario" href="pages/cadastro.html">Cadastrar nova receita</a></p>
 
       <table>
         <caption>Lista de receitas do cardápio</caption>
@@ -103,110 +103,110 @@
         <tbody>
           <tr>
             <th scope="row">Poke de salmão</th>
-            <td>Poke</td>
-            <td>15 min</td>
-            <td>Fácil</td>
-            <td>R$ 14,50</td>
-            <td>4,8</td>
-            <td>No cardápio</td>
-            <td>
-              <a href="pages/detalhes.html?id=1">Ver detalhes</a>
-              <a href="pages/cadastro.html?id=1">Editar</a>
-              <button type="button">Excluir</button>
+            <td data-label="Categoria">Poke</td>
+            <td data-label="Tempo de preparo">15 min</td>
+            <td data-label="Dificuldade">Fácil</td>
+            <td data-label="Custo estimado">R$ 14,50</td>
+            <td data-label="Avaliação">4,8</td>
+            <td data-label="Status"><span class="selo selo-cardapio">No cardápio</span></td>
+            <td data-label="Ações">
+              <a class="botao botao-secundario" href="pages/detalhes.html?id=1">Ver detalhes</a>
+              <a class="botao botao-secundario" href="pages/cadastro.html?id=1">Editar</a>
+              <button class="botao botao-perigo" type="button">Excluir</button>
             </td>
           </tr>
           <tr>
             <th scope="row">Hot roll de salmão</th>
-            <td>Sushi</td>
-            <td>25 min</td>
-            <td>Média</td>
-            <td>R$ 11,20</td>
-            <td>4,6</td>
-            <td>No cardápio</td>
-            <td>
-              <a href="pages/detalhes.html?id=2">Ver detalhes</a>
-              <a href="pages/cadastro.html?id=2">Editar</a>
-              <button type="button">Excluir</button>
+            <td data-label="Categoria">Sushi</td>
+            <td data-label="Tempo de preparo">25 min</td>
+            <td data-label="Dificuldade">Média</td>
+            <td data-label="Custo estimado">R$ 11,20</td>
+            <td data-label="Avaliação">4,6</td>
+            <td data-label="Status"><span class="selo selo-cardapio">No cardápio</span></td>
+            <td data-label="Ações">
+              <a class="botao botao-secundario" href="pages/detalhes.html?id=2">Ver detalhes</a>
+              <a class="botao botao-secundario" href="pages/cadastro.html?id=2">Editar</a>
+              <button class="botao botao-perigo" type="button">Excluir</button>
             </td>
           </tr>
           <tr>
             <th scope="row">Temaki de atum</th>
-            <td>Temaki</td>
-            <td>10 min</td>
-            <td>Fácil</td>
-            <td>R$ 9,80</td>
-            <td>4,4</td>
-            <td>No cardápio</td>
-            <td>
-              <a href="pages/detalhes.html?id=3">Ver detalhes</a>
-              <a href="pages/cadastro.html?id=3">Editar</a>
-              <button type="button">Excluir</button>
+            <td data-label="Categoria">Temaki</td>
+            <td data-label="Tempo de preparo">10 min</td>
+            <td data-label="Dificuldade">Fácil</td>
+            <td data-label="Custo estimado">R$ 9,80</td>
+            <td data-label="Avaliação">4,4</td>
+            <td data-label="Status"><span class="selo selo-cardapio">No cardápio</span></td>
+            <td data-label="Ações">
+              <a class="botao botao-secundario" href="pages/detalhes.html?id=3">Ver detalhes</a>
+              <a class="botao botao-secundario" href="pages/cadastro.html?id=3">Editar</a>
+              <button class="botao botao-perigo" type="button">Excluir</button>
             </td>
           </tr>
           <tr>
             <th scope="row">Yakisoba misto</th>
-            <td>Prato quente</td>
-            <td>30 min</td>
-            <td>Média</td>
-            <td>R$ 12,00</td>
-            <td>4,2</td>
-            <td>No cardápio</td>
-            <td>
-              <a href="pages/detalhes.html?id=4">Ver detalhes</a>
-              <a href="pages/cadastro.html?id=4">Editar</a>
-              <button type="button">Excluir</button>
+            <td data-label="Categoria">Prato quente</td>
+            <td data-label="Tempo de preparo">30 min</td>
+            <td data-label="Dificuldade">Média</td>
+            <td data-label="Custo estimado">R$ 12,00</td>
+            <td data-label="Avaliação">4,2</td>
+            <td data-label="Status"><span class="selo selo-cardapio">No cardápio</span></td>
+            <td data-label="Ações">
+              <a class="botao botao-secundario" href="pages/detalhes.html?id=4">Ver detalhes</a>
+              <a class="botao botao-secundario" href="pages/cadastro.html?id=4">Editar</a>
+              <button class="botao botao-perigo" type="button">Excluir</button>
             </td>
           </tr>
           <tr>
             <th scope="row">Uramaki skin crocante</th>
-            <td>Sushi</td>
-            <td>35 min</td>
-            <td>Difícil</td>
-            <td>R$ 10,40</td>
-            <td>4,0</td>
-            <td>Em teste</td>
-            <td>
-              <a href="pages/detalhes.html?id=5">Ver detalhes</a>
-              <a href="pages/cadastro.html?id=5">Editar</a>
-              <button type="button">Excluir</button>
+            <td data-label="Categoria">Sushi</td>
+            <td data-label="Tempo de preparo">35 min</td>
+            <td data-label="Dificuldade">Difícil</td>
+            <td data-label="Custo estimado">R$ 10,40</td>
+            <td data-label="Avaliação">4,0</td>
+            <td data-label="Status"><span class="selo selo-teste">Em teste</span></td>
+            <td data-label="Ações">
+              <a class="botao botao-secundario" href="pages/detalhes.html?id=5">Ver detalhes</a>
+              <a class="botao botao-secundario" href="pages/cadastro.html?id=5">Editar</a>
+              <button class="botao botao-perigo" type="button">Excluir</button>
             </td>
           </tr>
           <tr>
             <th scope="row">Mochi de morango</th>
-            <td>Sobremesa</td>
-            <td>40 min</td>
-            <td>Difícil</td>
-            <td>R$ 6,90</td>
-            <td>3,9</td>
-            <td>Descontinuado</td>
-            <td>
-              <a href="pages/detalhes.html?id=6">Ver detalhes</a>
-              <a href="pages/cadastro.html?id=6">Editar</a>
-              <button type="button">Excluir</button>
+            <td data-label="Categoria">Sobremesa</td>
+            <td data-label="Tempo de preparo">40 min</td>
+            <td data-label="Dificuldade">Difícil</td>
+            <td data-label="Custo estimado">R$ 6,90</td>
+            <td data-label="Avaliação">3,9</td>
+            <td data-label="Status"><span class="selo selo-descontinuado">Descontinuado</span></td>
+            <td data-label="Ações">
+              <a class="botao botao-secundario" href="pages/detalhes.html?id=6">Ver detalhes</a>
+              <a class="botao botao-secundario" href="pages/cadastro.html?id=6">Editar</a>
+              <button class="botao botao-perigo" type="button">Excluir</button>
             </td>
           </tr>
         </tbody>
       </table>
 
-      <p hidden>Nenhuma receita encontrada. Ajuste a pesquisa ou cadastre uma nova receita.</p>
+      <p class="estado-vazio" hidden>Nenhuma receita encontrada. Ajuste a pesquisa ou cadastre uma nova receita.</p>
     </section>
 
-    <aside aria-labelledby="titulo-resumo">
+    <aside class="resumo" aria-labelledby="titulo-resumo">
       <h2 id="titulo-resumo">Resumo do catálogo</h2>
       <ul>
-        <li>Total de receitas: 6</li>
-        <li>No cardápio: 4</li>
-        <li>Em teste: 1</li>
-        <li>Descontinuadas: 1</li>
+        <li><strong>6</strong> receitas no total</li>
+        <li><strong>4</strong> no cardápio</li>
+        <li><strong>1</strong> em teste</li>
+        <li><strong>1</strong> descontinuada</li>
       </ul>
     </aside>
 
-    <dialog id="dialogo-exclusao" aria-labelledby="titulo-exclusao">
+    <dialog class="dialogo" id="dialogo-exclusao" aria-labelledby="titulo-exclusao">
       <h2 id="titulo-exclusao">Excluir receita</h2>
       <p>Tem certeza de que deseja excluir esta receita? Essa ação não pode ser desfeita.</p>
-      <form method="dialog">
-        <button type="submit" value="cancelar">Cancelar</button>
-        <button type="submit" value="confirmar">Excluir receita</button>
+      <form class="acoes" method="dialog">
+        <button class="botao botao-secundario" type="submit" value="cancelar">Cancelar</button>
+        <button class="botao botao-perigo" type="submit" value="confirmar">Excluir receita</button>
       </form>
     </dialog>
 

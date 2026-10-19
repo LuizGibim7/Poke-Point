@@ -27,17 +27,23 @@
     </nav>
   </header>
 
-  <main>
+  <main class="layout-formulario">
 
-    <section aria-labelledby="titulo-api">
+    <section class="mensagens" aria-label="Mensagens do sistema">
+      <p class="mensagem mensagem-sucesso">Receita salva com sucesso.</p>
+      <p class="mensagem mensagem-erro">Não foi possível salvar. Preencha os campos obrigatórios.</p>
+      <p class="mensagem mensagem-info">Você está editando a receita "Poke de salmão".</p>
+    </section>
+
+    <section class="painel-api" aria-labelledby="titulo-api">
       <h2 id="titulo-api">Buscar receita de referência</h2>
       <p>Pesquise uma receita no TheMealDB para preencher o formulário com nome, categoria, ingredientes e imagem.</p>
 
       <form action="cadastro.html" method="get" role="search">
-        <p>
+        <p class="busca-api">
           <label for="busca-api">Nome da receita (em inglês)</label>
           <input type="search" id="busca-api" name="busca-api" placeholder="Ex.: salmon">
-          <button type="submit">Buscar na API</button>
+          <button class="botao botao-primario" type="submit">Buscar na API</button>
         </p>
       </form>
 
@@ -49,20 +55,22 @@
       </section>
     </section>
 
-    <section aria-labelledby="titulo-formulario">
+    <section class="painel-formulario" aria-labelledby="titulo-formulario">
       <h2 id="titulo-formulario">Cadastrar ou editar receita</h2>
 
       <form action="cadastro.html" method="post">
 
+        <p class="nota">Campos marcados com * são obrigatórios.</p>
+
         <fieldset>
           <legend>Dados gerais</legend>
 
-          <p>
+          <p class="campo campo-largo">
             <label for="nome">Nome da receita</label>
             <input type="text" id="nome" name="nome" maxlength="80" placeholder="Ex.: Poke de salmão" required>
           </p>
 
-          <p>
+          <p class="campo">
             <label for="categoria">Categoria</label>
             <select id="categoria" name="categoria" required>
               <option value="">Selecione uma categoria</option>
@@ -75,31 +83,33 @@
             </select>
           </p>
 
-          <p>
+          <p class="campo campo-largo">
             <label for="imagem">Endereço da imagem</label>
-            <input type="url" id="imagem" name="imagem" placeholder="https://exemplo.com/prato.jpg">
+            <input type="url" id="imagem" name="imagem" placeholder="https://exemplo.com/prato.jpg" aria-describedby="ajuda-imagem">
+            <small class="ajuda" id="ajuda-imagem">Opcional. Cole o endereço de uma foto do prato.</small>
           </p>
         </fieldset>
 
         <fieldset>
           <legend>Preparo</legend>
 
-          <p>
-            <label for="ingredientes">Ingredientes (um por linha)</label>
-            <textarea id="ingredientes" name="ingredientes" rows="6" required></textarea>
+          <p class="campo campo-largo">
+            <label for="ingredientes">Ingredientes</label>
+            <textarea id="ingredientes" name="ingredientes" rows="6" aria-describedby="ajuda-ingredientes" required></textarea>
+            <small class="ajuda" id="ajuda-ingredientes">Escreva um ingrediente por linha, com a quantidade.</small>
           </p>
 
-          <p>
+          <p class="campo campo-largo">
             <label for="modo-preparo">Modo de preparo</label>
             <textarea id="modo-preparo" name="modo-preparo" rows="6"></textarea>
           </p>
 
-          <p>
+          <p class="campo">
             <label for="tempo">Tempo de preparo (minutos)</label>
             <input type="number" id="tempo" name="tempo" min="1" max="480" step="1" required>
           </p>
 
-          <p>
+          <p class="campo">
             <label for="custo">Custo estimado por porção (R$)</label>
             <input type="number" id="custo" name="custo" min="0" step="0.01" required>
           </p>
@@ -107,7 +117,7 @@
 
         <fieldset>
           <legend>Dificuldade</legend>
-          <p>
+          <p class="opcoes">
             <input type="radio" id="dificuldade-facil" name="dificuldade" value="facil" required>
             <label for="dificuldade-facil">Fácil</label>
 
@@ -122,12 +132,12 @@
         <fieldset>
           <legend>Avaliação e situação</legend>
 
-          <p>
+          <p class="campo">
             <label for="avaliacao">Avaliação (0 a 5)</label>
             <input type="number" id="avaliacao" name="avaliacao" min="0" max="5" step="0.1">
           </p>
 
-          <p>
+          <p class="campo">
             <label for="status">Status</label>
             <select id="status" name="status" required>
               <option value="">Selecione o status</option>
@@ -137,16 +147,16 @@
             </select>
           </p>
 
-          <p>
+          <p class="opcoes">
             <input type="checkbox" id="destaque" name="destaque" value="sim">
             <label for="destaque">Marcar como destaque do cardápio</label>
           </p>
         </fieldset>
 
-        <p>
-          <button type="submit">Salvar receita</button>
-          <button type="reset">Limpar formulário</button>
-          <a href="../index.html">Cancelar</a>
+        <p class="acoes">
+          <button class="botao botao-primario" type="submit">Salvar receita</button>
+          <button class="botao botao-secundario" type="reset">Limpar formulário</button>
+          <a class="botao botao-texto" href="../index.html">Cancelar</a>
         </p>
 
       </form>
