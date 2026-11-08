@@ -247,6 +247,8 @@ function exibirMensagemGuardada() {
 
 function receitasParaExibir() {
   const termo = normalizarTexto(document.getElementById('busca').value.trim());
+  const categoria = document.getElementById('filtro-categoria').value;
+  const status = document.getElementById('filtro-status').value;
   let receitas = carregarReceitas();
 
   if (termo !== '') {
@@ -255,6 +257,14 @@ function receitasParaExibir() {
       const noIngrediente = receita.ingredientes.some((item) => normalizarTexto(item).includes(termo));
       return noNome || noIngrediente;
     });
+  }
+
+  if (categoria !== '') {
+    receitas = receitas.filter((receita) => receita.categoria === categoria);
+  }
+
+  if (status !== '') {
+    receitas = receitas.filter((receita) => receita.status === status);
   }
 
   return receitas;
@@ -689,4 +699,14 @@ document.addEventListener('DOMContentLoaded', () => {
     renderizarLista();
   });
   formulario.addEventListener('reset', () => setTimeout(renderizarLista, 0));
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (PAGINA !== 'lista') {
+    return;
+  }
+
+  for (const id of ['filtro-categoria', 'filtro-status']) {
+    document.getElementById(id).addEventListener('change', renderizarLista);
+  }
 });
