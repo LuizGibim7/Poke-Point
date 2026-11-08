@@ -326,3 +326,226 @@ document.addEventListener('DOMContentLoaded', () => {
   exibirMensagemGuardada();
   renderizarLista();
 });
+
+function lerFormulario(formulario) {
+  const dados = new FormData(formulario);
+  const tempoTexto = String(dados.get('tempo')).trim();
+  const custoTexto = String(dados.get('custo')).trim();
+  const notaTexto = String(dados.get('avaliacao')).trim();
+
+  return {
+    nome: String(dados.get('nome')).trim(),
+    categoria: dados.get('categoria'),
+    imagem: String(dados.get('imagem')).trim(),
+    ingredientes: String(dados.get('ingredientes'))
+      .split('\n')
+      .map((linha) => linha.trim())
+      .filter((linha) => linha !== ''),
+    modoPreparo: String(dados.get('modo-preparo')).trim(),
+    tempo: tempoTexto === '' ? NaN : Number(tempoTexto),
+    custo: custoTexto === '' ? NaN : Number(custoTexto),
+    dificuldade: dados.get('dificuldade'),
+    avaliacao: notaTexto === '' ? null : Number(notaTexto),
+    status: dados.get('status'),
+    destaque: dados.get('destaque') === 'sim'
+  };
+}
+
+function validarReceita(receita) {
+  const erros = {};
+
+  if (receita.nome.length < 3) {
+    erros.nome = 'Informe um nome com pelo menos 3 caracteres.';
+  }
+  if (!ROTULOS.categoria[receita.categoria]) {
+    erros.categoria = 'Selecione uma categoria.';
+  }
+  if (receita.imagem !== '' && !/^https?:\/\//i.test(receita.imagem)) {
+    erros.imagem = 'Informe um endereço que comece com http:// ou https://.';
+  }
+  if (receita.ingredientes.length === 0) {
+    erros.ingredientes = 'Informe pelo menos um ingrediente.';
+  }
+  if (!Number.isFinite(receita.tempo) || receita.tempo < 1 || receita.tempo > 480) {
+    erros.tempo = 'Informe um tempo entre 1 e 480 minutos.';
+  }
+  if (!Number.isFinite(receita.custo) || receita.custo < 0) {
+    erros.custo = 'Informe um custo igual ou maior que zero.';
+  }
+  if (!ROTULOS.dificuldade[receita.dificuldade]) {
+    erros.dificuldade = 'Escolha o nível de dificuldade.';
+  }
+  if (receita.avaliacao !== null && (!Number.isFinite(receita.avaliacao) || receita.avaliacao < 0 || receita.avaliacao > 5)) {
+    erros.avaliacao = 'A avaliação deve estar entre 0 e 5.';
+  }
+  if (!ROTULOS.status[receita.status]) {
+    erros.status = 'Selecione o status.';
+  }
+
+  return erros;
+}
+
+function limparErros(formulario) {
+  for (const erro of formulario.querySelectorAll('.erro')) {
+    const campo = formulario.querySelector(`[aria-describedby~="${erro.id}"]`);
+    if (campo) {
+      const restantes = campo.getAttribute('aria-describedby')
+        .split(' ')
+        .filter((id) => id !== erro.id)
+        .join(' ');
+      if (restantes) {
+        campo.setAttribute('aria-describedby', restantes);
+      } else {
+        campo.removeAttribute('aria-describedby');
+      }
+    }
+    erro.remove();
+  }
+  for (const campo of formulario.querySelectorAll('[aria-invalid]')) {
+    campo.removeAttribute('aria-invalid');
+  }
+}
+
+function mostrarErros(formulario, erros) {
+  let primeiroCampo = null;
+
+  for (const [nomeCampo, texto] of Object.entries(erros)) {
+    const ehGrupo = nomeCampo === 'dificuldade'; 
+    const campo = ehGrupo
+      ? formulario.querySelector('#dificuldade-facil')
+      : formulario.querySelector(`#${nomeCampo}`);
+    const recipiente = ehGrupo ? campo.closest('fieldset') : campo.parentElement;
+    const erro = criarElemento('small', { classe: 'erro', texto, atributos: { id: `erro-${nomeCampo}` } });
+
+    recipiente.append(erro);
+    const alvo = ehGrupo ? recipiente : campo;
+    alvo.setAttribute('aria-describedby', [alvo.getAttribute('aria-describedby'), erro.id].filter(Boolean).join(' '));
+    if (!ehGrupo) {
+      campo.setAttribute('aria-invalid', 'true');
+    }
+    if (primeiroCampo === null) {
+      primeiroCampo = campo;
+    }
+  }
+
+  if (primeiroCampo !== null) {
+    primeiroCampo.focus();
+  }
+}
+
+function tratarEnvioFormulario(evento) {
+  evento.preventDefault();
+  const formulario = evento.target;
+
+  limparErros(formulario);
+  const dados = lerFormulario(formulario);
+  const erros = validarReceita(dados);
+
+  if (Object.keys(erros).length > 0) {
+    mostrarErros(formulario, erros);
+    mostrarMensagem('erro', 'Não foi possível salvar. Corrija os campos destacados.');
+    return;
+  }
+
+  const receitas = carregarReceitas();
+  receitas.push({ id: gerarId(receitas), ...dados, criadaEm: Date.now() });
+  salvarReceitas(receitas);
+
+  guardarMensagem('sucesso', `Receita "${dados.nome}" cadastrada com sucesso.`);
+  window.location.href = CAMINHOS.lista;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (PAGINA !== 'cadastro') {
+    return;
+  }
+  const formulario = document.getElementById('form-receita');
+  formulario.addEventListener('submit', tratarEnvioFormulario);
+  formulario.addEventListener('reset', () => limparErros(formulario));
+});
+
+function preencherLista(lista, itens) {
+  lista.replaceChildren();
+  for (const item of itens) {
+    lista.append(criarElemento('li', { texto: item }));
+  }
+}
+
+function renderizarRelacionadas(receita) {
+  const lista = document.getElementById('lista-relacionadas');
+  const relacionadas = carregarReceitas()
+    .filter((outra) => outra.categoria === receita.categoria && outra.id !== receita.id)
+    .slice(0, 3);
+
+  lista.replaceChildren();
+  if (relacionadas.length === 0) {
+    lista.append(criarElemento('li', { texto: 'Nenhuma outra receita nesta categoria.' }));
+    return;
+  }
+  for (const outra of relacionadas) {
+    const link = criarElemento('a', { texto: outra.nome, atributos: { href: `${CAMINHOS.detalhes}?id=${outra.id}` } });
+    lista.append(criarElemento('li', {}, [link]));
+  }
+}
+
+function renderizarDetalhes(receita) {
+  const placeholder = `${CAMINHOS.imagens}placeholder-prato.svg`;
+  const imagem = document.getElementById('detalhe-imagem');
+
+  document.title = `${receita.nome} | Poke Point Receitas`;
+  document.getElementById('titulo-receita').textContent = receita.nome;
+  document.getElementById('detalhe-categoria').textContent = `Categoria: ${ROTULOS.categoria[receita.categoria]}`;
+
+  imagem.src = receita.imagem || placeholder;
+  imagem.alt = `Imagem do prato ${receita.nome}`;
+  imagem.onerror = () => {
+    imagem.onerror = null; 
+    imagem.src = placeholder;
+  };
+
+  document.getElementById('detalhe-tempo').textContent = `${receita.tempo} minutos`;
+  document.getElementById('detalhe-dificuldade').textContent = ROTULOS.dificuldade[receita.dificuldade];
+  document.getElementById('detalhe-custo').textContent = formatarMoeda(receita.custo);
+  document.getElementById('detalhe-avaliacao').textContent =
+    receita.avaliacao === null ? 'Sem avaliação' : `${formatarNota(receita.avaliacao)} de 5`;
+  document.getElementById('detalhe-destaque').textContent = receita.destaque ? 'Sim' : 'Não';
+
+  const status = document.getElementById('detalhe-status');
+  status.replaceChildren(criarElemento('span', {
+    classe: `selo ${CLASSE_STATUS[receita.status]}`,
+    texto: ROTULOS.status[receita.status]
+  }));
+
+  preencherLista(document.getElementById('detalhe-ingredientes'), receita.ingredientes);
+
+  const passos = receita.modoPreparo
+    .split('\n')
+    .map((linha) => linha.trim())
+    .filter((linha) => linha !== '');
+  preencherLista(
+    document.getElementById('detalhe-preparo'),
+    passos.length > 0 ? passos : ['Modo de preparo não informado.']
+  );
+
+  document.getElementById('link-editar').href = `${CAMINHOS.cadastro}?id=${receita.id}`;
+  renderizarRelacionadas(receita);
+
+  document.getElementById('detalhe-receita').hidden = false;
+  document.getElementById('detalhe-relacionadas').hidden = false;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (PAGINA !== 'detalhes') {
+    return;
+  }
+
+  const id = obterIdDaUrl();
+  const receita = id === null ? undefined : buscarReceitaPorId(id);
+
+  if (receita === undefined) {
+    document.getElementById('detalhe-vazio').hidden = false;
+    return;
+  }
+  renderizarDetalhes(receita);
+});
+
