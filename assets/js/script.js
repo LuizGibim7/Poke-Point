@@ -246,7 +246,18 @@ function exibirMensagemGuardada() {
 }
 
 function receitasParaExibir() {
-  return carregarReceitas();
+  const termo = normalizarTexto(document.getElementById('busca').value.trim());
+  let receitas = carregarReceitas();
+
+  if (termo !== '') {
+    receitas = receitas.filter((receita) => {
+      const noNome = normalizarTexto(receita.nome).includes(termo);
+      const noIngrediente = receita.ingredientes.some((item) => normalizarTexto(item).includes(termo));
+      return noNome || noIngrediente;
+    });
+  }
+
+  return receitas;
 }
 
 function criarLinhaReceita(receita) {
@@ -450,11 +461,10 @@ function tratarEnvioFormulario(evento) {
   const receitas = carregarReceitas();
 
   if (idEmEdicao === null) {
-    // Cadastro: adiciona uma nova receita
     receitas.push({ id: gerarId(receitas), ...dados, criadaEm: Date.now() });
     guardarMensagem('sucesso', `Receita "${dados.nome}" cadastrada com sucesso.`);
   } else {
-    // Edição: substitui os dados da receita existente
+
     const indice = receitas.findIndex((receita) => receita.id === idEmEdicao);
     if (indice === -1) {
       mostrarMensagem('erro', 'Receita não encontrada. Ela pode ter sido excluída.');
@@ -666,4 +676,17 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (PAGINA !== 'lista') {
+    return;
+  }
+  const formulario = document.getElementById('form-busca');
+  document.getElementById('busca').addEventListener('input', renderizarLista);
+  formulario.addEventListener('submit', (evento) => {
+    evento.preventDefault();
+    renderizarLista();
+  });
+  formulario.addEventListener('reset', () => setTimeout(renderizarLista, 0));
 });
