@@ -728,3 +728,110 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   document.getElementById('ordenacao').addEventListener('change', renderizarLista);
 });
+
+const URL_API = 'https://www.themealdb.com/api/json/v1/1/search.php';
+
+const CATEGORIAS_API = { Dessert: 'sobremesa', Starter: 'entrada', Side: 'entrada' };
+
+async function buscarReceitasNaApi(termo) {
+  const resposta = await fetch(`${URL_API}?s=${encodeURIComponent(termo)}`);
+  if (!resposta.ok) {
+    throw new Error(`A API respondeu com erro ${resposta.status}`);
+  }
+  const dados = await resposta.json();
+  return dados.meals ?? []; 
+}
+
+function converterRefeicao(refeicao) {
+  const ingredientes = [];
+
+  for (let i = 1; i <= 20; i++) {
+    const ingrediente = (refeicao[`strIngredient${i}`] || '').trim();
+    const medida = (refeicao[`strMeasure${i}`] || '').trim();
+    if (ingrediente !== '') {
+      ingredientes.push(medida !== '' ? `${medida} ${ingrediente}` : ingrediente);
+    }
+  }
+
+  return {
+    nome: refeicao.strMeal,
+    categoria: CATEGORIAS_API[refeicao.strCategory] || 'quente',
+    imagem: refeicao.strMealThumb || '',
+    ingredientes,
+    modoPreparo: (refeicao.strInstructions || '').replace(/\r\n/g, '\n').trim()
+  };
+}
+
+function usarReceitaDaApi(dados) {
+  const formulario = document.getElementById('form-receita');
+
+  limparErros(formulario);
+  formulario.elements['nome'].value = dados.nome;
+  formulario.elements['categoria'].value = dados.categoria;
+  formulario.elements['imagem'].value = dados.imagem;
+  formulario.elements['ingredientes'].value = dados.ingredientes.join('\n');
+  formulario.elements['modo-preparo'].value = dados.modoPreparo;
+
+  mostrarMensagem('info', 'Dados importados. Complete tempo, custo, dificuldade e status antes de salvar.');
+  formulario.elements['tempo'].focus();
+}
+
+function renderizarResultadosApi(refeicoes) {
+  const lista = document.getElementById('resultados-api');
+  lista.replaceChildren();
+
+  for (const refeicao of refeicoes.slice(0, 6)) {
+    const botao = criarElemento('button', {
+      classe: 'botao botao-secundario',
+      texto: 'Usar esta receita',
+      atributos: { type: 'button' }
+    });
+    botao.addEventListener('click', () => usarReceitaDaApi(converterRefeicao(refeicao)));
+
+    lista.append(criarElemento('li', { classe: 'resultado-api' }, [
+      criarElemento('img', {
+        atributos: { src: refeicao.strMealThumb, alt: '', width: '64', height: '64', loading: 'lazy' }
+      }),
+      criarElemento('span', { texto: `${refeicao.strMeal} (${refeicao.strCategory})` }),
+      botao
+    ]));
+  }
+}
+
+async function tratarBuscaApi(evento) {
+  evento.preventDefault();
+
+  const termo = document.getElementById('busca-api').value.trim();
+  const status = document.getElementById('status-api');
+  const lista = document.getElementById('resultados-api');
+
+  if (termo.length < 2) {
+    status.textContent = 'Digite pelo menos 2 letras para buscar.';
+    return;
+  }
+
+  status.textContent = 'Buscando receitas...';
+  lista.replaceChildren();
+
+  try {
+    const refeicoes = await buscarReceitasNaApi(termo);
+
+    if (refeicoes.length === 0) {
+      status.textContent = `Nenhuma receita encontrada para "${termo}".`;
+      return;
+    }
+
+    status.textContent = `${refeicoes.length} receita(s) encontrada(s). Escolha uma para preencher o formulário.`;
+    renderizarResultadosApi(refeicoes);
+  } catch (erro) {
+    console.error(erro);
+    status.textContent = 'Não foi possível consultar a API. Verifique sua conexão e tente novamente.';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (PAGINA !== 'cadastro') {
+    return;
+  }
+  document.getElementById('form-api').addEventListener('submit', tratarBuscaApi);
+});
