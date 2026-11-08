@@ -448,10 +448,23 @@ function tratarEnvioFormulario(evento) {
   }
 
   const receitas = carregarReceitas();
-  receitas.push({ id: gerarId(receitas), ...dados, criadaEm: Date.now() });
-  salvarReceitas(receitas);
 
-  guardarMensagem('sucesso', `Receita "${dados.nome}" cadastrada com sucesso.`);
+  if (idEmEdicao === null) {
+    // Cadastro: adiciona uma nova receita
+    receitas.push({ id: gerarId(receitas), ...dados, criadaEm: Date.now() });
+    guardarMensagem('sucesso', `Receita "${dados.nome}" cadastrada com sucesso.`);
+  } else {
+    // Edição: substitui os dados da receita existente
+    const indice = receitas.findIndex((receita) => receita.id === idEmEdicao);
+    if (indice === -1) {
+      mostrarMensagem('erro', 'Receita não encontrada. Ela pode ter sido excluída.');
+      return;
+    }
+    receitas[indice] = { ...receitas[indice], ...dados };
+    guardarMensagem('sucesso', `Receita "${dados.nome}" atualizada com sucesso.`);
+  }
+
+  salvarReceitas(receitas);
   window.location.href = CAMINHOS.lista;
 }
 
@@ -549,3 +562,47 @@ document.addEventListener('DOMContentLoaded', () => {
   renderizarDetalhes(receita);
 });
 
+let idEmEdicao = null;
+
+function preencherFormulario(receita) {
+  const formulario = document.getElementById('form-receita');
+
+  formulario.elements['nome'].value = receita.nome;
+  formulario.elements['categoria'].value = receita.categoria;
+  formulario.elements['imagem'].value = receita.imagem;
+  formulario.elements['ingredientes'].value = receita.ingredientes.join('\n');
+  formulario.elements['modo-preparo'].value = receita.modoPreparo;
+  formulario.elements['tempo'].value = receita.tempo;
+  formulario.elements['custo'].value = receita.custo;
+  formulario.elements['dificuldade'].value = receita.dificuldade;
+  formulario.elements['avaliacao'].value = receita.avaliacao ?? '';
+  formulario.elements['status'].value = receita.status;
+  formulario.elements['destaque'].checked = receita.destaque;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (PAGINA !== 'cadastro') {
+    return;
+  }
+
+  const id = obterIdDaUrl();
+  if (id === null) {
+    return; 
+  }
+
+  const receita = buscarReceitaPorId(id);
+  if (receita === undefined) {
+    mostrarMensagem('erro', 'Receita não encontrada. Você pode cadastrar uma nova.');
+    return;
+  }
+
+  idEmEdicao = id;
+  preencherFormulario(receita);
+
+  document.title = `Editar ${receita.nome} | Poke Point Receitas`;
+  document.getElementById('titulo-formulario').textContent = 'Editar receita';
+  document.getElementById('botao-salvar').textContent = 'Salvar alterações';
+  const aviso = document.getElementById('aviso-edicao');
+  aviso.textContent = `Você está editando "${receita.nome}".`;
+  aviso.hidden = false;
+});
