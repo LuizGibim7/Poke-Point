@@ -244,3 +244,85 @@ function exibirMensagemGuardada() {
   const { tipo, texto: conteudo } = JSON.parse(texto);
   mostrarMensagem(tipo, conteudo);
 }
+
+function receitasParaExibir() {
+  return carregarReceitas();
+}
+
+function criarLinhaReceita(receita) {
+  const selo = criarElemento('span', {
+    classe: `selo ${CLASSE_STATUS[receita.status]}`,
+    texto: ROTULOS.status[receita.status]
+  });
+
+  const acoes = criarElemento('td', { atributos: { 'data-label': 'Ações' } }, [
+    criarElemento('a', {
+      classe: 'botao botao-secundario',
+      texto: 'Ver detalhes',
+      atributos: { href: `${CAMINHOS.detalhes}?id=${receita.id}` }
+    }),
+    criarElemento('a', {
+      classe: 'botao botao-secundario',
+      texto: 'Editar',
+      atributos: { href: `${CAMINHOS.cadastro}?id=${receita.id}` }
+    }),
+    criarElemento('button', {
+      classe: 'botao botao-perigo',
+      texto: 'Excluir',
+      atributos: { type: 'button', 'data-acao': 'excluir', 'data-id': receita.id }
+    })
+  ]);
+
+  return criarElemento('tr', {}, [
+    criarElemento('th', { texto: receita.nome, atributos: { scope: 'row' } }),
+    criarElemento('td', { texto: ROTULOS.categoria[receita.categoria], atributos: { 'data-label': 'Categoria' } }),
+    criarElemento('td', { texto: `${receita.tempo} min`, atributos: { 'data-label': 'Tempo de preparo' } }),
+    criarElemento('td', { texto: ROTULOS.dificuldade[receita.dificuldade], atributos: { 'data-label': 'Dificuldade' } }),
+    criarElemento('td', { texto: formatarMoeda(receita.custo), atributos: { 'data-label': 'Custo estimado' } }),
+    criarElemento('td', { texto: formatarNota(receita.avaliacao), atributos: { 'data-label': 'Avaliação' } }),
+    criarElemento('td', { atributos: { 'data-label': 'Status' } }, [selo]),
+    acoes
+  ]);
+}
+
+function atualizarResumo() {
+  const todas = carregarReceitas();
+  const contagem = { 'no-cardapio': 0, 'em-teste': 0, descontinuado: 0 };
+
+  for (const receita of todas) {
+    if (receita.status in contagem) {
+      contagem[receita.status]++;
+    }
+  }
+
+  document.getElementById('resumo-total').textContent = todas.length;
+  document.getElementById('resumo-cardapio').textContent = contagem['no-cardapio'];
+  document.getElementById('resumo-teste').textContent = contagem['em-teste'];
+  document.getElementById('resumo-descontinuadas').textContent = contagem.descontinuado;
+}
+
+function renderizarLista() {
+  const corpo = document.getElementById('lista-receitas');
+  const receitas = receitasParaExibir();
+
+  corpo.replaceChildren();
+  for (const receita of receitas) {
+    corpo.append(criarLinhaReceita(receita));
+  }
+
+  const total = receitas.length;
+  document.getElementById('contagem').textContent =
+    total === 1 ? 'Exibindo 1 receita.' : `Exibindo ${total} receitas.`;
+  document.getElementById('estado-vazio').hidden = total > 0;
+  document.querySelector('.painel-lista table').hidden = total === 0;
+
+  atualizarResumo();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (PAGINA !== 'lista') {
+    return;
+  }
+  exibirMensagemGuardada();
+  renderizarLista();
+});
