@@ -606,3 +606,64 @@ document.addEventListener('DOMContentLoaded', () => {
   aviso.textContent = `Você está editando "${receita.nome}".`;
   aviso.hidden = false;
 });
+
+let idParaExcluir = null;
+
+function abrirDialogoExclusao(receita) {
+  idParaExcluir = receita.id;
+  document.getElementById('nome-exclusao').textContent = `"${receita.nome}"`;
+  document.getElementById('dialogo-exclusao').showModal();
+}
+
+function excluirReceita(id) {
+  const restantes = carregarReceitas().filter((receita) => receita.id !== id);
+  salvarReceitas(restantes);
+}
+
+function configurarExclusao(aoConcluir) {
+  const dialogo = document.getElementById('dialogo-exclusao');
+
+  dialogo.addEventListener('close', () => {
+    if (dialogo.returnValue === 'confirmar' && idParaExcluir !== null) {
+      const receita = buscarReceitaPorId(idParaExcluir);
+      excluirReceita(idParaExcluir);
+      aoConcluir(receita);
+    }
+    idParaExcluir = null;
+    dialogo.returnValue = '';
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (PAGINA === 'lista') {
+    configurarExclusao((receita) => {
+      renderizarLista();
+      mostrarMensagem('sucesso', `Receita "${receita.nome}" excluída.`);
+    });
+
+    document.getElementById('lista-receitas').addEventListener('click', (evento) => {
+      const botao = evento.target.closest('[data-acao="excluir"]');
+      if (botao === null) {
+        return;
+      }
+      const receita = buscarReceitaPorId(Number(botao.dataset.id));
+      if (receita !== undefined) {
+        abrirDialogoExclusao(receita);
+      }
+    });
+  }
+
+  if (PAGINA === 'detalhes') {
+    configurarExclusao((receita) => {
+      guardarMensagem('sucesso', `Receita "${receita.nome}" excluída.`);
+      window.location.href = CAMINHOS.lista;
+    });
+
+    document.getElementById('botao-excluir').addEventListener('click', () => {
+      const receita = buscarReceitaPorId(obterIdDaUrl());
+      if (receita !== undefined) {
+        abrirDialogoExclusao(receita);
+      }
+    });
+  }
+});
