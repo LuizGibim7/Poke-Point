@@ -245,10 +245,20 @@ function exibirMensagemGuardada() {
   mostrarMensagem(tipo, conteudo);
 }
 
+const CRITERIOS_ORDENACAO = {
+  'nome-asc': (a, b) => a.nome.localeCompare(b.nome, 'pt-BR'),
+  'nome-desc': (a, b) => b.nome.localeCompare(a.nome, 'pt-BR'),
+  'tempo-asc': (a, b) => a.tempo - b.tempo,
+  'tempo-desc': (a, b) => b.tempo - a.tempo,
+  'avaliacao-desc': (a, b) => (b.avaliacao ?? -1) - (a.avaliacao ?? -1),
+  'custo-asc': (a, b) => a.custo - b.custo
+};
+
 function receitasParaExibir() {
   const termo = normalizarTexto(document.getElementById('busca').value.trim());
   const categoria = document.getElementById('filtro-categoria').value;
   const status = document.getElementById('filtro-status').value;
+  const criterio = document.getElementById('ordenacao').value;
   let receitas = carregarReceitas();
 
   if (termo !== '') {
@@ -267,7 +277,8 @@ function receitasParaExibir() {
     receitas = receitas.filter((receita) => receita.status === status);
   }
 
-  return receitas;
+  const comparar = CRITERIOS_ORDENACAO[criterio] || CRITERIOS_ORDENACAO['nome-asc'];
+  return [...receitas].sort(comparar);
 }
 
 function criarLinhaReceita(receita) {
@@ -709,4 +720,11 @@ document.addEventListener('DOMContentLoaded', () => {
   for (const id of ['filtro-categoria', 'filtro-status']) {
     document.getElementById(id).addEventListener('change', renderizarLista);
   }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (PAGINA !== 'lista') {
+    return;
+  }
+  document.getElementById('ordenacao').addEventListener('change', renderizarLista);
 });
