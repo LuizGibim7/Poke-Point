@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="../assets/css/style.css">
   <script src="../assets/js/script.js" defer></script>
 </head>
-<body>
+<body data-pagina="cadastro">
 
   <header>
     <a href="../index.html">
@@ -29,17 +29,11 @@
 
   <main class="layout-formulario">
 
-    <section class="mensagens" aria-label="Mensagens do sistema">
-      <p class="mensagem mensagem-sucesso">Receita salva com sucesso.</p>
-      <p class="mensagem mensagem-erro">Não foi possível salvar. Preencha os campos obrigatórios.</p>
-      <p class="mensagem mensagem-info">Você está editando a receita "Poke de salmão".</p>
-    </section>
-
     <section class="painel-api" aria-labelledby="titulo-api">
       <h2 id="titulo-api">Buscar receita de referência</h2>
       <p>Pesquise uma receita no TheMealDB para preencher o formulário com nome, categoria, ingredientes e imagem.</p>
 
-      <form action="cadastro.html" method="get" role="search">
+      <form id="form-api" action="cadastro.html" method="get" role="search">
         <p class="busca-api">
           <label for="busca-api">Nome da receita (em inglês)</label>
           <input type="search" id="busca-api" name="busca-api" placeholder="Ex.: salmon">
@@ -49,16 +43,16 @@
 
       <section aria-labelledby="titulo-resultados-api">
         <h3 id="titulo-resultados-api">Resultados da busca</h3>
-        <ul>
-          <li>Os resultados da API aparecerão aqui.</li>
-        </ul>
+        <p class="ajuda" id="status-api" role="status">Digite o nome de um prato e clique em buscar.</p>
+        <ul id="resultados-api"></ul>
       </section>
     </section>
 
     <section class="painel-formulario" aria-labelledby="titulo-formulario">
-      <h2 id="titulo-formulario">Cadastrar ou editar receita</h2>
+      <h2 id="titulo-formulario">Cadastrar receita</h2>
+      <p class="mensagem mensagem-info" id="aviso-edicao" hidden></p>
 
-      <form action="cadastro.html" method="post">
+      <form id="form-receita" action="cadastro.html" method="post" novalidate>
 
         <p class="nota">Campos marcados com * são obrigatórios.</p>
 
@@ -154,7 +148,7 @@
         </fieldset>
 
         <p class="acoes">
-          <button class="botao botao-primario" type="submit">Salvar receita</button>
+          <button class="botao botao-primario" id="botao-salvar" type="submit">Salvar receita</button>
           <button class="botao botao-secundario" type="reset">Limpar formulário</button>
           <a class="botao botao-texto" href="../index.html">Cancelar</a>
         </p>
@@ -168,6 +162,8 @@
     <p>Poke Point Receitas &mdash; Trabalho Prático Individual, Interfaces Web, PUC Minas.</p>
     <p>Desenvolvido por Luiz Felipe.</p>
   </footer>
+
+  <div class="area-mensagens" id="area-mensagens" aria-live="polite"></div>
 
 </body>
 </html>

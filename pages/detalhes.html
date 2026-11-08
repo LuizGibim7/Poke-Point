@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="../assets/css/style.css">
   <script src="../assets/js/script.js" defer></script>
 </head>
-<body>
+<body data-pagina="detalhes">
 
   <header>
     <a href="../index.html">
@@ -31,14 +31,16 @@
 
     <p><a class="link-voltar" href="../index.html">Voltar para a lista de receitas</a></p>
 
-    <article class="receita" aria-labelledby="titulo-receita">
+    <p class="estado-vazio" id="detalhe-vazio" hidden>Nenhuma receita selecionada ou receita não encontrada. Escolha uma receita na lista para ver os detalhes.</p>
+
+    <article class="receita" id="detalhe-receita" aria-labelledby="titulo-receita" hidden>
       <header>
-        <h2 id="titulo-receita">Poke de salmão</h2>
-        <p>Categoria: Poke</p>
+        <h2 id="titulo-receita"></h2>
+        <p id="detalhe-categoria"></p>
       </header>
 
       <figure>
-        <img src="../assets/img/placeholder-prato.svg" alt="Poke de salmão com arroz, legumes e cubos de salmão cru" width="400" height="300">
+        <img id="detalhe-imagem" src="../assets/img/placeholder-prato.svg" alt="" width="400" height="300">
         <figcaption>Imagem ilustrativa do prato.</figcaption>
       </figure>
 
@@ -47,73 +49,67 @@
         <dl>
           <div>
             <dt>Tempo de preparo</dt>
-            <dd>15 minutos</dd>
+            <dd id="detalhe-tempo"></dd>
           </div>
 
           <div>
             <dt>Dificuldade</dt>
-            <dd>Fácil</dd>
+            <dd id="detalhe-dificuldade"></dd>
           </div>
 
           <div>
             <dt>Custo estimado por porção</dt>
-            <dd>R$ 14,50</dd>
+            <dd id="detalhe-custo"></dd>
           </div>
 
           <div>
             <dt>Avaliação</dt>
-            <dd>4,8 de 5</dd>
+            <dd id="detalhe-avaliacao"></dd>
           </div>
 
           <div>
             <dt>Status</dt>
-            <dd><span class="selo selo-cardapio">No cardápio</span></dd>
+            <dd id="detalhe-status"></dd>
           </div>
 
           <div>
             <dt>Destaque</dt>
-            <dd>Sim</dd>
+            <dd id="detalhe-destaque"></dd>
           </div>
         </dl>
       </section>
 
       <section aria-labelledby="titulo-ingredientes">
         <h3 id="titulo-ingredientes">Ingredientes</h3>
-        <ul>
-          <li>150 g de salmão fresco em cubos</li>
-          <li>1 xícara de arroz japonês cozido</li>
-          <li>1/2 pepino em fatias finas</li>
-          <li>1/2 manga em cubos</li>
-          <li>2 colheres de molho shoyu</li>
-          <li>1 colher de gergelim torrado</li>
-        </ul>
+        <ul id="detalhe-ingredientes"></ul>
       </section>
 
       <section aria-labelledby="titulo-preparo">
         <h3 id="titulo-preparo">Modo de preparo</h3>
-        <ol>
-          <li>Tempere o salmão com shoyu e gergelim.</li>
-          <li>Monte a base com o arroz japonês na tigela.</li>
-          <li>Distribua o pepino, a manga e o salmão sobre o arroz.</li>
-          <li>Finalize com gergelim e sirva imediatamente.</li>
-        </ol>
+        <ol id="detalhe-preparo"></ol>
       </section>
 
       <footer>
         <p class="acoes">
-          <a class="botao botao-secundario" href="cadastro.html?id=1">Editar receita</a>
-          <button class="botao botao-perigo" type="button">Excluir receita</button>
+          <a class="botao botao-secundario" id="link-editar" href="cadastro.html">Editar receita</a>
+          <button class="botao botao-perigo" id="botao-excluir" type="button">Excluir receita</button>
         </p>
       </footer>
     </article>
 
-    <aside class="relacionadas" aria-labelledby="titulo-relacionadas">
+    <aside class="relacionadas" id="detalhe-relacionadas" aria-labelledby="titulo-relacionadas" hidden>
       <h2 id="titulo-relacionadas">Outras receitas da categoria</h2>
-      <ul>
-        <li><a href="detalhes.html?id=2">Hot roll de salmão</a></li>
-        <li><a href="detalhes.html?id=3">Temaki de atum</a></li>
-      </ul>
+      <ul id="lista-relacionadas"></ul>
     </aside>
+
+    <dialog class="dialogo" id="dialogo-exclusao" aria-labelledby="titulo-exclusao">
+      <h2 id="titulo-exclusao">Excluir receita</h2>
+      <p>Tem certeza de que deseja excluir <strong id="nome-exclusao">esta receita</strong>? Essa ação não pode ser desfeita.</p>
+      <form class="acoes" method="dialog">
+        <button class="botao botao-secundario" type="submit" value="cancelar">Cancelar</button>
+        <button class="botao botao-perigo" type="submit" value="confirmar">Excluir receita</button>
+      </form>
+    </dialog>
 
   </main>
 
@@ -121,6 +117,8 @@
     <p>Poke Point Receitas &mdash; Trabalho Prático Individual, Interfaces Web, PUC Minas.</p>
     <p>Desenvolvido por Luiz Felipe.</p>
   </footer>
+
+  <div class="area-mensagens" id="area-mensagens" aria-live="polite"></div>
 
 </body>
 </html>

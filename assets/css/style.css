@@ -1,8 +1,6 @@
-/* ===== PASSO 1: IDENTIDADE VISUAL ===== */
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Zen+Maru+Gothic:wght@500;700&display=swap');
 
 :root {
-  /* Cores */
   --nori: #1f3a34;
   --nori-claro: #e3ebe6;
   --arroz: #f3f5f1;
@@ -16,11 +14,10 @@
   --perigo: #a61e1e;
   --foco: #0b5fd0;
 
-  /* Tipografia */
+
   --fonte-titulo: 'Zen Maru Gothic', 'Trebuchet MS', sans-serif;
   --fonte-texto: 'Source Sans 3', 'Segoe UI', Arial, sans-serif;
 
-  /* Medidas */
   --largura: 80rem;
   --raio-painel: 0.75rem;
   --raio-controle: 0.5rem;
@@ -87,16 +84,13 @@ img {
 [hidden] {
   display: none !important;
 }
-/* ===== PASSO 2: ESTRUTURA GERAL E NAVEGAÇÃO ===== */
 
-/* Flexbox: o rodapé fica sempre no fim da página */
 body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* Centraliza o conteúdo até a largura máxima, mantendo o fundo em tela cheia */
 body > header,
 main,
 body > footer {
@@ -111,7 +105,6 @@ main {
   padding-block: var(--espaco-3);
 }
 
-/* Cabeçalho com Grid: logo, título, subtítulo e navegação */
 body > header {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -154,7 +147,6 @@ body > header > nav {
   margin-top: var(--espaco-2);
 }
 
-/* Flexbox: lista de links da navegação */
 nav ul {
   display: flex;
   flex-wrap: wrap;
@@ -182,7 +174,6 @@ nav a[aria-current="page"] {
   background: #ffffff;
 }
 
-/* Rodapé */
 body > footer {
   display: flex;
   flex-direction: column;
@@ -196,8 +187,6 @@ body > footer {
 body > footer p {
   margin: 0;
 }
-
-/* ===== PASSO 3: BOTÕES, LINKS E ESTADOS DE INTERAÇÃO ===== */
 
 .botao {
   display: inline-flex;
@@ -267,7 +256,6 @@ body > footer p {
   cursor: not-allowed;
 }
 
-/* Indicação visual de foco para teclado */
 :focus-visible {
   outline: 3px solid var(--foco);
   outline-offset: 2px;
@@ -286,8 +274,6 @@ body > header :focus-visible {
     transition: none !important;
   }
 }
-
-/* ===== PASSO 4: FORMULÁRIOS ===== */
 
 label {
   display: block;
@@ -341,7 +327,6 @@ textarea:disabled {
   cursor: not-allowed;
 }
 
-/* Cada campo é uma coluna: rótulo, controle e texto de ajuda */
 .campo {
   display: flex;
   flex-direction: column;
@@ -352,7 +337,6 @@ textarea:disabled {
   grid-column: 1 / -1;
 }
 
-/* Asterisco nos campos obrigatórios */
 .campo:has([required]) > label::after,
 fieldset:has([type="radio"][required]) > legend::after {
   content: " *";
@@ -373,7 +357,6 @@ fieldset:has([type="radio"][required]) > legend::after {
   margin: 0 0 var(--espaco-2);
 }
 
-/* Grupos de radio e checkbox */
 .opcoes {
   display: flex;
   flex-wrap: wrap;
@@ -398,7 +381,6 @@ input[type="checkbox"] {
   accent-color: var(--nori);
 }
 
-/* Grid: os campos de cada grupo se distribuem sozinhos nas colunas */
 fieldset {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
@@ -422,7 +404,6 @@ legend {
   color: var(--nori);
 }
 
-/* Linha de botões do formulário */
 .acoes {
   display: flex;
   flex-wrap: wrap;
@@ -431,7 +412,6 @@ legend {
   margin: 0;
 }
 
-/* Formulário de pesquisa, filtro e ordenação */
 .form-busca {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
@@ -446,7 +426,6 @@ legend {
   grid-column: 1 / -1;
 }
 
-/* Busca na API: campo e botão na mesma linha (Flexbox) */
 .busca-api {
   display: flex;
   flex-wrap: wrap;
@@ -469,9 +448,6 @@ legend {
   margin-top: var(--espaco-3);
 }
 
-/* ===== PASSO 5: LISTAGEM DE RECEITAS ===== */
-
-/* Painéis: base visual compartilhada */
 .painel-busca,
 .painel-lista,
 .painel-api,
@@ -497,7 +473,6 @@ legend {
   margin-bottom: var(--espaco-3);
 }
 
-/* Tabela em telas pequenas: cada linha vira um cartão */
 .painel-lista table,
 .painel-lista tbody,
 .painel-lista tr,
@@ -511,7 +486,6 @@ legend {
   border-collapse: collapse;
 }
 
-/* Legenda e cabeçalho ocultos visualmente, mas lidos por leitores de tela */
 .painel-lista caption,
 .painel-lista thead {
   position: absolute;
@@ -546,7 +520,6 @@ legend {
   border-top: 1px dashed var(--borda);
 }
 
-/* O rótulo de cada dado vem do atributo data-label do HTML */
 .painel-lista td::before {
   content: attr(data-label);
   font-weight: 600;
@@ -568,7 +541,6 @@ legend {
   font-size: 0.9375rem;
 }
 
-/* Selos de status */
 .selo {
   display: inline-block;
   padding: 0.15rem 0.65rem;
@@ -593,7 +565,6 @@ legend {
   background: #e6e6e6;
 }
 
-/* Resumo do catálogo: Flexbox */
 .resumo {
   padding: clamp(1rem, 3vw, 1.5rem);
   background: var(--nori-claro);
@@ -628,7 +599,6 @@ legend {
   color: var(--nori);
 }
 
-/* Estado vazio da listagem */
 .estado-vazio {
   padding: var(--espaco-4) var(--espaco-2);
   text-align: center;
@@ -636,7 +606,6 @@ legend {
   border: 2px dashed var(--borda-forte);
   border-radius: var(--raio-painel);
 }
-/* ===== PASSO 6: DETALHES DA RECEITA ===== */
 
 .layout-detalhes > p {
   margin: 0;
@@ -677,7 +646,6 @@ legend {
   border-bottom: 2px solid var(--nori-claro);
 }
 
-/* Grid: informações em blocos que se reorganizam sozinhos */
 .receita dl {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
@@ -739,8 +707,6 @@ legend {
   background: var(--nori-claro);
 }
 
-/* ===== PASSO 7: MENSAGENS E CONFIRMAÇÃO DE EXCLUSÃO ===== */
-
 .mensagens {
   display: grid;
   gap: 0.75rem;
@@ -788,9 +754,6 @@ legend {
   justify-content: flex-end;
 }
 
-/* ===== PASSO 8: LAYOUT DAS PÁGINAS COM CSS GRID ===== */
-
-/* Lista: áreas nomeadas (uma coluna no celular) */
 .layout-lista {
   grid-template-columns: minmax(0, 1fr);
   grid-template-areas:
@@ -811,7 +774,6 @@ legend {
   grid-area: lista;
 }
 
-/* Cadastro */
 .layout-formulario {
   grid-template-columns: minmax(0, 1fr);
 }
@@ -820,14 +782,10 @@ legend {
   grid-column: 1 / -1;
 }
 
-/* Detalhes */
 .layout-detalhes {
   grid-template-columns: minmax(0, 1fr);
 }
 
-/* ===== PASSO 9: RESPONSIVIDADE ===== */
-
-/* Tablet em diante: a partir de 768px */
 @media (min-width: 48em) {
   body > header {
     grid-template-columns: auto 1fr auto;
@@ -845,7 +803,6 @@ legend {
     justify-content: space-between;
   }
 
-  /* Cartões da listagem em colunas */
   .painel-lista tbody {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
@@ -856,7 +813,6 @@ legend {
     margin-bottom: 0;
   }
 
-  /* Detalhes: imagem ao lado das informações */
   .receita {
     grid-template-columns: minmax(14rem, 20rem) minmax(0, 1fr);
   }
@@ -875,7 +831,6 @@ legend {
   }
 }
 
-/* Notebook e desktop: a partir de 1152px */
 @media (min-width: 72em) {
   .layout-lista {
     grid-template-columns: minmax(0, 1fr) 22rem;
@@ -901,7 +856,6 @@ legend {
     align-self: start;
   }
 
-  /* A listagem volta a ser uma tabela tradicional */
   .painel-lista table {
     display: table;
   }
@@ -965,4 +919,77 @@ legend {
   .painel-lista td .botao {
     margin: 0.125rem 0.25rem 0.125rem 0;
   }
+}
+.area-mensagens {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+  display: grid;
+  gap: 0.75rem;
+  width: min(24rem, calc(100% - 2rem));
+}
+
+.area-mensagens .mensagem {
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.2);
+}
+
+.painel-formulario > .mensagem {
+  margin-bottom: var(--espaco-2);
+}
+
+.erro {
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--perigo);
+}
+
+fieldset > .erro {
+  grid-column: 1 / -1;
+  margin-top: 0;
+}
+
+[aria-invalid="true"] {
+  border-color: var(--perigo);
+  background: #fff8f8;
+}
+
+.painel-api ul {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.resultado-api {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem;
+  border: 1px solid var(--borda);
+  border-radius: var(--raio-controle);
+}
+
+.resultado-api img {
+  flex: none;
+  width: 4rem;
+  height: 4rem;
+  object-fit: cover;
+  border-radius: 0.375rem;
+}
+
+.resultado-api span {
+  flex: 1 1 8rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.resultado-api .botao {
+  flex: none;
+  min-height: 2.25rem;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.9375rem;
 }
