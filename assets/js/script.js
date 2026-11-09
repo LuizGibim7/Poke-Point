@@ -734,12 +734,19 @@ const URL_API = 'https://www.themealdb.com/api/json/v1/1/search.php';
 const CATEGORIAS_API = { Dessert: 'sobremesa', Starter: 'entrada', Side: 'entrada' };
 
 async function buscarReceitasNaApi(termo) {
-  const resposta = await fetch(`${URL_API}?s=${encodeURIComponent(termo)}`);
-  if (!resposta.ok) {
-    throw new Error(`A API respondeu com erro ${resposta.status}`);
+  const controle = new AbortController();
+  const limite = setTimeout(() => controle.abort(), 8000); // desiste após 8 segundos
+
+  try {
+    const resposta = await fetch(`${URL_API}?s=${encodeURIComponent(termo)}`, { signal: controle.signal });
+    if (!resposta.ok) {
+      throw new Error(`A API respondeu com erro ${resposta.status}`);
+    }
+    const dados = await resposta.json();
+    return dados.meals ?? []; // a API devolve null quando não encontra nada
+  } finally {
+    clearTimeout(limite);
   }
-  const dados = await resposta.json();
-  return dados.meals ?? []; 
 }
 
 function converterRefeicao(refeicao) {
@@ -823,9 +830,11 @@ async function tratarBuscaApi(evento) {
 
     status.textContent = `${refeicoes.length} receita(s) encontrada(s). Escolha uma para preencher o formulário.`;
     renderizarResultadosApi(refeicoes);
-  } catch (erro) {
+    } catch (erro) {
     console.error(erro);
-    status.textContent = 'Não foi possível consultar a API. Verifique sua conexão e tente novamente.';
+    status.textContent = erro.name === 'AbortError'
+      ? 'A API demorou demais para responder. Tente novamente em instantes.'
+      : 'Não foi possível consultar a API. Verifique sua conexão e tente novamente.';
   }
 }
 
